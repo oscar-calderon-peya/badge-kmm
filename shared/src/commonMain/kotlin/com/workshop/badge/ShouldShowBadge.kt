@@ -7,19 +7,20 @@ import kotlin.time.Duration
 import kotlin.time.ExperimentalTime
 
 @ExperimentalTime
-class ShouldShowBadge(private val lastCheckedTime: LastCheckedTime, private val clock: Clock) {
+class ShouldShowBadge(private val lastCheckedTimeRepository: LastCheckedTimeRepository, private val clock: Clock) {
 
     fun invoke(): Boolean {
         val timeZone = TimeZone.currentSystemDefault()
-        val checkedTimeInstant = lastCheckedTime.get()?.toInstant(timeZone) ?: return true
+        val checkedTimeInstant = lastCheckedTimeRepository.get()?.toInstant(timeZone) ?: return true
         val currentMoment = clock.now().toInstant(timeZone)
         val dateUtilCheckedTimeIsValid = checkedTimeInstant.plus(Duration.Companion.hours(24))
         return currentMoment > dateUtilCheckedTimeIsValid
     }
 }
 
-interface LastCheckedTime {
+interface LastCheckedTimeRepository {
     fun get(): LocalDateTime?
+    fun set(time: LocalDateTime)
 }
 
 interface Clock {

@@ -11,7 +11,7 @@ import kotlin.time.ExperimentalTime
 @ExperimentalTime
 class ShouldShowBadgeTest {
 
-    private val lastCheckedTime = mock<LastCheckedTime> { }
+    private val lastCheckedTime = mock<LastCheckedTimeRepository> { }
     private val clock = mock<Clock> { }
     private val shouldShowBadge = ShouldShowBadge(lastCheckedTime, clock)
 
