@@ -1,5 +1,5 @@
 package com.workshop.badge
 
-expect class Platform() {
+expect class PlatformName() {
     val platform: String
 }
